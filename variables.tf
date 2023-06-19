@@ -121,12 +121,6 @@ variable "install_maintenance_window_schedule" {
   default     = "cron(0 0 21 ? * WED *)"
 }
 
-variable "s3_bucket_prefix_install_logs" {
-  description = "The Amazon S3 bucket subfolder"
-  type        = string
-  default     = "install"
-}
-
 variable "task_install_priority" {
   description = "The priority of the task in the Maintenance Window, the lower the number the higher the priority. Tasks in a Maintenance Window are scheduled in priority order with tasks that have the same priority scheduled in parallel."
   type        = number
@@ -225,4 +219,56 @@ variable "ssm_bucket_versioning_enable" {
   type        = string
   description = "To enable or disable S3 bucket versioning for the log bucket."
   default     = true
+}
+
+variable "s3_logging_enabled" {
+  default = false
+  description = "If true, ship patch logs to an S3 bucket."
+  type = bool
+}
+
+variable "s3_patching_task_output_prefix" {
+  default = "install"
+  description = <<EOF
+The path prefix within the S3 bucket to use for patch task logs.
+
+Only relevant when `s3_logging_enabled` is true.
+EOF
+  type = string
+}
+
+variable "s3_scanning_task_output_prefix" {
+  default = "scan"
+  description = <<EOF
+The path prefix within the S3 bucket to use for scan task logs.
+
+Only relevant when `s3_logging_enabled` is true.
+EOF
+  type = string
+}
+
+variable "cloudwatch_logging_enabled" {
+  default = true
+  description = "If true, ship patch logs to CloudWatch."
+  type = bool
+}
+
+variable "cloudwatch_patching_task_log_group_name" {
+  default = "/aws/ssm/install"
+  description = <<EOF
+The name of the CloudWatch log group to ship logs to for patching tasks.
+
+Only relevant when `cloudwatch_logging_enabled` is true.
+EOF
+  type = string
+}
+
+variable "cloudwatch_scanning_task_log_group_name" {
+  default = "/aws/ssm/scan"
+  description = <<EOF
+The name of the CloudWatch log group to ship logs to for scanning tasks.
+
+Only relevant when `cloudwatch_logging_enabled` is true.
+EOF
+  type = string
 }

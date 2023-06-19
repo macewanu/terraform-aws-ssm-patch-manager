@@ -1,7 +1,10 @@
 locals {
   account_id        = join("", data.aws_caller_identity.current.*.account_id)
   aws_partition     = join("", data.aws_partition.current.*.partition)
-  create_log_bucket = local.enabled && var.bucket_id == null
+
+  s3_logging_enabled = module.this.enabled && var.s3_logging_enabled
+
+  create_log_bucket = local.s3_logging_enabled && var.bucket_id == null
   bucket_id         = var.bucket_id != null ? var.bucket_id : module.ssm_patch_log_s3_bucket_label.id
   bucket_policy     = var.ssm_bucket_policy != null ? var.ssm_bucket_policy : try(data.aws_iam_policy_document.bucket_policy[0].json, "")
 }
@@ -12,11 +15,12 @@ module "ssm_patch_log_s3_bucket_label" {
   version = "0.25.0"
 
   enabled = local.create_log_bucket
-  # attributes = ["scan-window"]
   context = module.this.context
 }
+
 data "aws_iam_policy_document" "bucket_policy" {
   count = local.create_log_bucket ? 1 : 0
+  
   statement {
     effect = "Allow"
     actions = [

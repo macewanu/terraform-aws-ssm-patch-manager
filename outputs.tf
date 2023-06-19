@@ -47,3 +47,13 @@ output "scan_patch_group_id" {
   description = "SSM Patch Manager scan patch group ID"
   value       = aws_ssm_patch_group.scan_patchgroup[0].id
 }
+
+output "cloudwatch_patching_task_log_group_name" {
+  description = "CloudWatch log group to ship patch task logs to."
+  value = var.cloudwatch_logging_enabled ? var.cloudwatch_patching_task_log_group_name : ""
+}
+
+output "cloudwatch_scanning_task_log_group_name" {
+  description = "CloudWatch log group to ship scan task logs to."
+  value = var.cloudwatch_logging_enabled ? var.cloudwatch_scanning_task_log_group_name : ""
+}
