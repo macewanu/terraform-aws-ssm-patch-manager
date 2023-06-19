@@ -164,37 +164,37 @@ variable "rejected_patches" {
 
 variable "patch_baseline_approval_rules" {
   description = "A set of rules used to include patches in the baseline. Up to 10 approval rules can be specified. Each `approval_rule` block requires the fields documented below."
-  type = list(object({
+  type = map(object({
     approve_after_days : number
     compliance_level : string
     enable_non_security : bool
-    patch_baseline_filters : list(object({
+    patch_baseline_filters : map(object({
       name : string
       values : list(string)
     }))
   }))
 
-  default = [
-    {
+  default = {
+    default = {
       approve_after_days  = 7
       compliance_level    = "HIGH"
       enable_non_security = true
-      patch_baseline_filters = [
-        {
+      patch_baseline_filters = {
+        product = {
           name   = "PRODUCT"
           values = ["AmazonLinux2", "AmazonLinux2.0"]
-        },
-        {
+        }
+        classification = {
           name   = "CLASSIFICATION"
           values = ["Security", "Bugfix", "Recommended"]
-        },
-        {
+        }
+        severity = {
           name   = "SEVERITY"
           values = ["Critical", "Important", "Medium"]
         }
-      ]
+      }
     }
-  ]
+  }
 
 }
 variable "approved_patches_compliance_level" {
