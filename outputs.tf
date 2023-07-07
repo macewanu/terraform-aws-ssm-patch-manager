@@ -1,59 +1,54 @@
-output "ssm_patch_log_s3_bucket_id" {
-  description = "SSM Patch Manager s3 log bucket ID"
-  value       = local.create_log_bucket ? join("", module.ssm_patch_log_s3_bucket.*.bucket_id) : ""
+output "install_task_patch_group_id" {
+  description = "SSM Patch Manager install patch group ID"
+  value       = one(aws_ssm_patch_group.install_task_patch_group[*])
 }
 
-output "ssm_patch_log_s3_bucket_arn" {
-  description = "SSM Patch Manager s3 log bucket ARN"
-  value       = local.create_log_bucket ? join("", module.ssm_patch_log_s3_bucket.*.bucket_arn) : ""
-}
-
-output "scan_maintenance_window_task_id" {
-  description = "SSM Patch Manager scan maintenance windows task ID"
-  value       = aws_ssm_maintenance_window_task.task_scan_patches[0].id
-}
-
-output "install_maintenance_window_task_id" {
-  description = "SSM Patch Manager install maintenance windows task ID"
-  value       = aws_ssm_maintenance_window_task.task_install_patches[0].id
-}
-
-output "scan_maintenance_window_target_id" {
-  description = "SSM Patch Manager scan maintenance window target ID"
-  value       = aws_ssm_maintenance_window_target.target_scan[0].id
-}
-
-output "install_maintenance_window_target_id" {
-  description = "SSM Patch Manager install maintenance window target ID"
-  value       = aws_ssm_maintenance_window_target.target_install[0].id
-}
-
-output "install_maintenance_window_id" {
+output "install_task_maintenance_window_id" {
   description = "SSM Patch Manager install maintenance window ID"
-  value       = aws_ssm_maintenance_window.install_window[0].id
+  value       = one(aws_ssm_maintenance_window.install_task_window[*].id)
+}
+
+output "install_task_maintenance_window_instances_target_id" {
+  description = "SSM Patch Manager install maintenance window instances target ID"
+  value       = one(aws_ssm_maintenance_window_target.install_task_instance_targets[*].id)
+}
+
+output "install_task_maintenance_window_resource_groups_target_id" {
+  description = "SSM Patch Manager scan maintenance window resource groups target ID"
+  value       = one(aws_ssm_maintenance_window_target.install_task_resource_group_targets[*].id)
+}
+
+output "install_task_maintenance_window_task_id" {
+  description = "SSM Patch Manager install maintenance windows task ID"
+  value       = one(aws_ssm_maintenance_window_task.install_task_window_task[*].id)
 }
 
 output "patch_baseline_arn" {
   description = "SSM Patch Manager patch baseline ARN"
-  value       = aws_ssm_patch_baseline.baseline[0].arn
+  value       = one(aws_ssm_patch_baseline.baseline[*].arn)
 }
 
-output "install_patch_group_id" {
-  description = "SSM Patch Manager install patch group ID"
-  value       = aws_ssm_patch_group.install_patchgroup[0].id
-}
-
-output "scan_patch_group_id" {
+output "scan_task_patch_group_id" {
   description = "SSM Patch Manager scan patch group ID"
-  value       = aws_ssm_patch_group.scan_patchgroup[0].id
+  value       = one(aws_ssm_patch_group.scan_task_patch_group[*])
 }
 
-output "cloudwatch_patching_task_log_group_name" {
-  description = "CloudWatch log group to ship patch task logs to."
-  value = var.cloudwatch_logging_enabled ? var.cloudwatch_patching_task_log_group_name : ""
+output "scan_task_maintenance_window_id" {
+  description = "SSM Patch Manager install maintenance window ID"
+  value       = one(aws_ssm_maintenance_window.scan_task_window[*].id)
 }
 
-output "cloudwatch_scanning_task_log_group_name" {
-  description = "CloudWatch log group to ship scan task logs to."
-  value = var.cloudwatch_logging_enabled ? var.cloudwatch_scanning_task_log_group_name : ""
+output "scan_task_maintenance_window_instances_target_id" {
+  description = "SSM Patch Manager scan maintenance window instances target ID"
+  value       = one(aws_ssm_maintenance_window_target.scan_task_instance_targets[*].id)
+}
+
+output "scan_task_maintenance_window_resource_groups_target_id" {
+  description = "SSM Patch Manager scan maintenance window resource groups target ID"
+  value       = one(aws_ssm_maintenance_window_target.scan_task_resource_group_targets[*].id)
+}
+
+output "scan_task_maintenance_window_task_id" {
+  description = "SSM Patch Manager scan maintenance windows task ID"
+  value       = one(aws_ssm_maintenance_window_task.scan_task_window_task[*].id)
 }
