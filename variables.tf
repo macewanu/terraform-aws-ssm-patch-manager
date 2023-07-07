@@ -115,6 +115,12 @@ variable "s3_logging_enabled" {
   type        = bool
 }
 
+variable "schedule_timezone" {
+  default     = null
+  description = "Timezone to use for scheduled maintenance windows."
+  type        = string
+}
+
 variable "service_role_arn" {
   default     = null
   description = <<EOF

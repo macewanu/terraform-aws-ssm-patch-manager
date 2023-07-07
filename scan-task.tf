@@ -24,10 +24,11 @@ module "scan_task_window_label" {
 resource "aws_ssm_maintenance_window" "scan_task_window" {
   count = local.scan_task_maintenance_window_enabled ? 1 : 0
 
-  name     = module.scan_task_window_label.id
-  schedule = var.scan_task_maintenance_window_schedule
-  duration = var.scan_task_maintenance_window_duration
-  cutoff   = var.scan_task_maintenance_window_cutoff
+  name              = module.scan_task_window_label.id
+  schedule          = var.scan_task_maintenance_window_schedule
+  schedule_timezone = var.schedule_timezone
+  duration          = var.scan_task_maintenance_window_duration
+  cutoff            = var.scan_task_maintenance_window_cutoff
 
   tags = module.this.tags
 }

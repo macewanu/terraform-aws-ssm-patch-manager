@@ -24,10 +24,11 @@ module "install_task_window_label" {
 resource "aws_ssm_maintenance_window" "install_task_window" {
   count = local.install_task_maintenance_window_enabled ? 1 : 0
 
-  name     = module.install_task_window_label.id
-  schedule = var.install_task_maintenance_window_schedule
-  duration = var.install_task_maintenance_window_duration
-  cutoff   = var.install_task_maintenance_window_cutoff
+  name              = module.install_task_window_label.id
+  schedule          = var.install_task_maintenance_window_schedule
+  schedule_timezone = var.schedule_timezone
+  duration          = var.install_task_maintenance_window_duration
+  cutoff            = var.install_task_maintenance_window_cutoff
 
   tags = module.this.tags
 }
