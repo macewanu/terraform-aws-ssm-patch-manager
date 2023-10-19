@@ -182,7 +182,7 @@ variable "target_instance_tags" {
   description = <<EOF
 A map of instance tag names to their values to register as targets for the created maintenance window(s).
 
-Note that in the case of the `Patch Group` tag,
+Note that in the case of the `PatchGroup` tag,
 the `patch_group_targets` variable should be used instead of this one (for that tag only).
 EOF
   type        = map(set(string))
@@ -192,7 +192,7 @@ variable "target_patch_groups" {
   default     = []
   description = <<EOF
 The instances to register as targets for the created maintenance window(s) based
-on the value of their `Patch Group` tag.
+on the value of their `PatchGroup` tag.
 EOF
   type        = set(string)
 }

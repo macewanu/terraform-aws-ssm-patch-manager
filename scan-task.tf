@@ -64,12 +64,12 @@ resource "aws_ssm_maintenance_window_target" "scan_task_instance_targets" {
     }
   }
 
-  # Targets by 'Patch Group' Tag.
+  # Targets by 'PatchGroup' Tag.
   dynamic "targets" {
     for_each = length(var.target_patch_groups) > 0 ? ["true"] : []
 
     content {
-      key    = "tag:Patch Group"
+      key    = "tag:PatchGroup"
       values = var.target_patch_groups
     }
   }

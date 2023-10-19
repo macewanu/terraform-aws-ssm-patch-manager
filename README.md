@@ -10,14 +10,14 @@ and patch groups.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5 |
 
 ## Modules
 
@@ -103,8 +103,8 @@ and patch groups.
 | <a name="input_stage"></a> [stage](#input\_stage) | ID element. Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).<br>Neither the tag keys nor the tag values will be modified by this module. | `map(string)` | `{}` | no |
 | <a name="input_target_instance_ids"></a> [target\_instance\_ids](#input\_target\_instance\_ids) | The IDs of instances to register as targets for the created maintenance window(s). | `set(string)` | `[]` | no |
-| <a name="input_target_instance_tags"></a> [target\_instance\_tags](#input\_target\_instance\_tags) | A map of instance tag names to their values to register as targets for the created maintenance window(s).<br><br>Note that in the case of the `Patch Group` tag,<br>the `patch_group_targets` variable should be used instead of this one (for that tag only). | `map(set(string))` | `{}` | no |
-| <a name="input_target_patch_groups"></a> [target\_patch\_groups](#input\_target\_patch\_groups) | The instances to register as targets for the created maintenance window(s) based<br>on the value of their `Patch Group` tag. | `set(string)` | `[]` | no |
+| <a name="input_target_instance_tags"></a> [target\_instance\_tags](#input\_target\_instance\_tags) | A map of instance tag names to their values to register as targets for the created maintenance window(s).<br><br>Note that in the case of the `PatchGroup` tag,<br>the `patch_group_targets` variable should be used instead of this one (for that tag only). | `map(set(string))` | `{}` | no |
+| <a name="input_target_patch_groups"></a> [target\_patch\_groups](#input\_target\_patch\_groups) | The instances to register as targets for the created maintenance window(s) based<br>on the value of their `PatchGroup` tag. | `set(string)` | `[]` | no |
 | <a name="input_target_resource_groups"></a> [target\_resource\_groups](#input\_target\_resource\_groups) | A map of resource group keys to their values to register as targets for the created maintenance window(s). | `map(set(string))` | `{}` | no |
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | ID element \_(Rarely used, not included by default)\_. A customer identifier, indicating who this instance of a resource is for | `string` | `null` | no |
 
